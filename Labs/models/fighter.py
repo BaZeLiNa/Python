@@ -1,6 +1,8 @@
 """
 A class that inherits from an abstract class
 """
+from exceptions import RefuelException
+from decorators import logger
 from models.aerial_vehicle import AerialVehicle
 
 
@@ -36,6 +38,7 @@ class Fighter(AerialVehicle):
         self.fuel_consumption_in_liters_per_hour = fuel_consumption_in_liters_per_hour
         self.current_fuel = current_fuel
 
+    @logger(RefuelException, "console")
     def refuel(self, fuel):
         """Refuel the Fighter aircraft.
 
@@ -49,6 +52,7 @@ class Fighter(AerialVehicle):
             self.current_fuel += fuel
         else:
             self.current_fuel = self.fuel_capacity
+            raise RefuelException("Too much")
 
     def fuel_dumping(self, distance_to_base):
         """Check if fuel dumping is required for the Fighter aircraft.

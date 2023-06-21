@@ -1,6 +1,8 @@
 """
 A class that inherits from an abstract class
 """
+from exceptions import RefuelException, DescendException, AscendException
+from decorators import logger
 from models.aerial_vehicle import AerialVehicle
 
 
@@ -46,6 +48,7 @@ class Helicopter(AerialVehicle):
         """Make the Helicopter take off by setting the current altitude to 100."""
         self.current_altitude = 100
 
+    @logger(AscendException, "file")
     def ascend(self, altitude):
         """Ascend the Helicopter by a specified altitude.
 
@@ -54,7 +57,11 @@ class Helicopter(AerialVehicle):
         """
         if (self.current_altitude + altitude) <= self.max_altitude:
             self.current_altitude += altitude
+        else:
+            self.current_altitude = self.max_altitude
+            raise AscendException("Too high")
 
+    @logger(DescendException, "file")
     def descend(self, altitude):
         """Descend the Helicopter by a specified altitude.
 
@@ -65,7 +72,9 @@ class Helicopter(AerialVehicle):
             self.current_altitude -= altitude
         else:
             self.current_altitude = 0
+            raise DescendException("Altitude cannot be less than 0")
 
+    @logger(RefuelException, "console")
     def refuel(self, fuel):
         """Refuel the Helicopter with a specified amount of fuel.
 
@@ -76,6 +85,7 @@ class Helicopter(AerialVehicle):
             self.current_fuel += fuel
         else:
             self.current_fuel = self.fuel_capacity
+            raise RefuelException("Too much")
 
     @classmethod
     def get_instance(cls):
