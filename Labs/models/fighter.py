@@ -23,11 +23,14 @@ class Fighter(AerialVehicle):
         """
         return self.max_weapon_weight
 
-    def __init__(self, manufacturer="", max_speed=0, engine_type=0, max_weapon_weight=0, fuel_capacity=0,
+    def __init__(self, task_variations=None, manufacturer="", max_speed=0,
+                 engine_type=0, max_weapon_weight=0, fuel_capacity=0,
                  fuel_consumption_in_liters_per_hour=0, current_fuel=0):
         """Initialize the Fighter class."""
 
-        super().__init__(manufacturer, max_speed, engine_type)
+        super().__init__(task_variations, manufacturer, max_speed, engine_type)
+        if task_variations is None:
+            task_variations = {}
         self.max_weapon_weight = max_weapon_weight
         self.fuel_capacity = fuel_capacity
         self.fuel_consumption_in_liters_per_hour = fuel_consumption_in_liters_per_hour
@@ -65,7 +68,8 @@ class Fighter(AerialVehicle):
         Returns:
             str: String representation of the Fighter aircraft.
         """
-        return f"Fighter(manufacturer={self.manufacturer}, max_speed={self.max_speed}," \
+        return f"Fighter(task_variations = {self.task_variations}, " \
+               f"manufacturer={self.manufacturer}, max_speed={self.max_speed}," \
                f" engine_type={self.engine_type}, max_weapon_weight={self.max_weapon_weight}, " \
                f"fuel_capacity={self.fuel_capacity}, " \
                f"fuel_consumption_in_liters_per_hour={self.fuel_consumption_in_liters_per_hour}, " \

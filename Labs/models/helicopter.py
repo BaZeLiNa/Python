@@ -23,12 +23,15 @@ class Helicopter(AerialVehicle):
         """
         return self.max_cargo_weight + self.max_weapon_weight
 
-    def __init__(self, manufacturer="", max_speed=0, engine_type=0, model="", current_altitude=0, max_altitude=0,
+    def __init__(self, task_variations=None, manufacturer="", max_speed=0,
+                 engine_type=0, model="", current_altitude=0, max_altitude=0,
                  fuel_capacity=0, current_fuel=0, fuel_consumption_in_liters_per_hour=0, max_weapon_weight=0,
                  max_cargo_weight=0):
         """Initialize the Helicopter class."""
 
-        super().__init__(manufacturer, max_speed, engine_type)
+        super().__init__(task_variations, manufacturer, max_speed, engine_type)
+        if task_variations is None:
+            task_variations = {}
         self.vehicle_id = 100
         self.model = model
         self.current_altitude = current_altitude
@@ -89,7 +92,8 @@ class Helicopter(AerialVehicle):
         Returns:
             str: String representation of the Helicopter.
         """
-        return f"Helicopter(manufacturer={self.manufacturer}, max_speed={self.max_speed}," \
+        return f"Helicopter(task_variations = {self.task_variations}, " \
+               f"manufacturer={self.manufacturer}, max_speed={self.max_speed}," \
                f" engine_type={self.engine_type}, vehicle_id={self.vehicle_id}, model={self.model}, " \
                f"current_altitude={self.current_altitude}, max_altitude={self.max_altitude}, " \
                f"fuel_capacity={self.fuel_capacity}, current_fuel={self.current_fuel})"
