@@ -1,13 +1,13 @@
 """
 Class manager to create objects and validate methods
 """
-from managers.aerial_vehicle_sm import AerialVehicleManagerSM
+from functools import wraps
 from models.helicopter import Helicopter
 from models.drone import Drone
 from models.fighter import Fighter
 from models.passenger_plane import PassengerPlane
 from models.engine_type import EngineType
-from functools import wraps
+from managers.aerial_vehicle_sm import AerialVehicleManagerSM
 
 
 def decorator_number_four(function):
@@ -130,8 +130,8 @@ class AerialVehicleManagerRM:
         Print the index and corresponding element of each aerial vehicle.
 
         """
-        for index, element in enumerate(self.aerial_vehicles):
-            print(f" {index} - this is the index of this element: {element}")
+        for index, element1 in enumerate(self.aerial_vehicles):
+            print(f" {index} - this is the index of this element: {element1}")
 
     def func_with_zip(self):
         """
@@ -214,3 +214,11 @@ if __name__ == "__main__":
     print("")
     for element in test_manager:
         print(2)
+    exception_test_object = Helicopter({"crew transport", "weapons transport", "combat"}, "Boeing", 120,
+                                       EngineType.PISTON, "CH-47", 0, 3000, 600, 560, 35, 600, 500)
+    print("\n\n\n")
+
+    exception_test_object.ascend(3100)
+    exception_test_object.descend(3100)
+    exception_test_object.refuel(50)
+
