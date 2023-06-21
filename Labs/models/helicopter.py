@@ -1,16 +1,34 @@
 """
-A class Helicopter
+A class that inherits from an abstract class
 """
+from models.aerial_vehicle import AerialVehicle
 
 
-class Helicopter:
+class Helicopter(AerialVehicle):
     """Class representing a Helicopter."""
 
-    def __init__(self, model="", current_altitude=0, max_altitude=0,
+    def get_max_flying_distance(self):
+        """Calculate the maximum flying distance of the helicopter.
+
+        Returns:
+            float: The maximum flying distance in kilometers.
+        """
+        return (self.fuel_capacity / self.fuel_consumption_in_liters_per_hour) * self.max_speed
+
+    def get_max_delivery_weight(self):
+        """Calculate the maximum delivery weight of the helicopter.
+
+        Returns:
+            int: The maximum delivery weight in kilograms.
+        """
+        return self.max_cargo_weight + self.max_weapon_weight
+
+    def __init__(self, manufacturer="", max_speed=0, engine_type=0, model="", current_altitude=0, max_altitude=0,
                  fuel_capacity=0, current_fuel=0, fuel_consumption_in_liters_per_hour=0, max_weapon_weight=0,
                  max_cargo_weight=0):
         """Initialize the Helicopter class."""
 
+        super().__init__(manufacturer, max_speed, engine_type)
         self.vehicle_id = 100
         self.model = model
         self.current_altitude = current_altitude
@@ -71,6 +89,7 @@ class Helicopter:
         Returns:
             str: String representation of the Helicopter.
         """
-        return f"Helicopter(vehicle_id={self.vehicle_id}, model={self.model}, " \
+        return f"Helicopter(manufacturer={self.manufacturer}, max_speed={self.max_speed}," \
+               f" engine_type={self.engine_type}, vehicle_id={self.vehicle_id}, model={self.model}, " \
                f"current_altitude={self.current_altitude}, max_altitude={self.max_altitude}, " \
                f"fuel_capacity={self.fuel_capacity}, current_fuel={self.current_fuel})"
